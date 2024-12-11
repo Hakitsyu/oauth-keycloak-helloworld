@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http"
 import { inject } from "@angular/core"
 import { ConfigurationService } from "@project/app/shared/config/config.service"
+import { OAuthService } from "angular-oauth2-oidc"
 import { from, map, mergeMap } from "rxjs"
 
 export abstract class ApiService {
@@ -9,9 +10,8 @@ export abstract class ApiService {
     protected readonly httpClient = inject(HttpClient)
 
     protected get<T>(path: string) {
-        return from(this.configurationService.get())
-            .pipe(
-                mergeMap(config => this.httpClient.get<T>(`${config.api}/${path}`))
-            )
+        return from(this.configurationService.get()).pipe(
+            mergeMap(config => this.httpClient.get<T>(`${config.api}/${path}`))
+        )
     }
 }
