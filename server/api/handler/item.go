@@ -31,7 +31,7 @@ func ConfigureItemHandlers(router *mux.Router) {
 func GetItems(rw http.ResponseWriter, r *http.Request) {
 	content, err := json.Marshal(items)
 	if err != nil {
-		print("HELLASDSAD")
+		http.Error(rw, "Internal error", http.StatusInternalServerError)
 		return
 	}
 

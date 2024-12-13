@@ -1,0 +1,9 @@
+{
+    "api": "http://server:8080/api",
+    "oauth": {
+        "issuer": "http://keycloak:8020/realms/company",
+        "clientId": "oauth-kck-client",
+        "scope": "openid profile email offline_access",
+        "responseType": "code"
+    }
+}

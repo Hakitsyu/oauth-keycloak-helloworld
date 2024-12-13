@@ -1,9 +1,0 @@
-export const config: any = {
-    api: 'http://localhost:8080/api',
-    oauth: {
-        issuer: "http://localhost:8020/realms/company",
-        clientId: "oauth-kck-client",
-        scope: "openid profile email offline_access",
-        responseType: "code",
-    }
-}

@@ -1,6 +1,31 @@
 version: '3.7'
 
 services:
+  client:
+    build:
+      context: ./client
+    depends_on:
+      - server
+    ports:
+      - 4200:80
+    networks:
+      - apps
+
+  server:
+    build:
+      context: ./server
+    depends_on:
+      - keycloak
+    ports:
+      - 8080:8080
+    environment:
+      - APP_PORT=8080
+      - OAUTH_CLIENT_ID=oauth-kck-server
+      - OAUTH_ISSUER_URL=http://keycloak:8020/realms/company
+      - OAUTH_SKIP_ISSUER_CHECK=true
+    networks:
+      - apps
+
   keycloak:
     image: quay.io/keycloak/keycloak:26.0.7
     ports:

@@ -19,11 +19,13 @@ export function provideAuth(): EnvironmentProviders {
             const router = inject(Router);
             const configurationService = inject(ConfigurationService);
 
+            
             const { oauth: config } = await configurationService.get();
 
             oauthService.configure({
                 ...config,
-                redirectUri: window.location.origin
+                redirectUri: window.location.origin,
+                requireHttps: false
             });
 
             await oauthService.loadDiscoveryDocumentAndTryLogin()

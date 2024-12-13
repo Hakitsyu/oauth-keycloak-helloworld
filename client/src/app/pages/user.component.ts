@@ -1,7 +1,8 @@
 import { Component, inject, OnDestroy, OnInit } from "@angular/core";
 import { Item, ItemService } from "../api/services/items.service";
-import { Observable, Subject, takeUntil } from "rxjs";
+import { catchError, Observable, Subject, takeUntil, tap } from "rxjs";
 import { CommonModule } from "@angular/common";
+import { HttpErrorResponse } from "@angular/common/http";
 
 @Component({
     selector: 'app-user',
@@ -12,6 +13,10 @@ import { CommonModule } from "@angular/common";
         @for (item of items | async; track $index) {
             <h2>{{ item.name }}</h2>
         }
+
+        @if (error) {
+            <h2>Error: {{error}}</h2>
+        }
     `
 })
 export class UserComponent implements OnInit, OnDestroy {
@@ -21,9 +26,17 @@ export class UserComponent implements OnInit, OnDestroy {
     
     items?: Observable<Item[]>
 
+    error?: string;
+
     ngOnInit(): void {
         this.items = this.itemService.getItems()
-            .pipe(takeUntil(this.destroy$))
+            .pipe(
+                takeUntil(this.destroy$),
+                catchError((error: HttpErrorResponse) => {
+                    this.error = error.error;
+                    return []
+                })
+            )
     }
 
     ngOnDestroy(): void {
