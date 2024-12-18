@@ -5,6 +5,7 @@ import { routes } from './app.routes';
 import { provideAuth } from './shared/auth/provider';
 import { provideApi } from './api/provider';
 import { provideConfiguration } from './shared/config/provider';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -12,6 +13,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideConfiguration(),
     provideAuth(),
-    provideApi()
+    provideApi(), 
+    provideAnimationsAsync()
   ]
 };

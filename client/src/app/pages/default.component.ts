@@ -8,7 +8,6 @@ import { OAuthService } from "angular-oauth2-oidc";
     standalone: true,
     template: `
         <h1>Default</h1>
-        <button (click)="login()">Login</button>
     `
 })
 export class DefaultComponent {

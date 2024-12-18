@@ -5,6 +5,7 @@ import { AuthGuard } from "./auth.guard";
 import { Router } from "@angular/router";
 import { ConfigurationService } from "../config/config.service";
 import { from, map, merge, mergeMap, Observable } from "rxjs";
+import { AuthService } from "./auth.service";
 
 export function provideAuth(): EnvironmentProviders {
     return makeEnvironmentProviders([
@@ -35,7 +36,8 @@ export function provideAuth(): EnvironmentProviders {
                         await router.navigateByUrl(decodeURIComponent(url))
                 })
         }),
-        AuthGuard
+        AuthGuard,
+        AuthService
     ]);
 }
 
